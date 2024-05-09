@@ -36,10 +36,9 @@ class NavDrawer extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text('Profile'),
             onTap: () async {
-              Get.to(()=> const ProfileScreen());
+              Get.to(() => const ProfileScreen());
             },
           ),
-
           ListTile(
             leading: Icon(Icons.shopping_cart),
             title: Text('My Orders'),
@@ -56,11 +55,6 @@ class NavDrawer extends StatelessWidget {
               trailing: Container(height: 30, width: 40, child: themeToggle()),
             );
           }),
-
-
-
-
-
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
@@ -68,22 +62,20 @@ class NavDrawer extends StatelessWidget {
               auth.logoutUser();
             },
           ),
-          Builder(
-              builder: (context) {
-                if(FirebaseAuth.instance.currentUser!.email.toString()=='shayaniqbal515@gmail.com'){
-                  return ListTile(
-                    leading: Icon(Icons.person_outlined),
-                    title: Text('Admin Panel'),
-                    onTap: () async {
-                      Get.to(() => const AdminPanel());
-                    },
-                  );
-                }
-                else{
-                  return Text('');
-                }
-              }
-          ),
+          Builder(builder: (context) {
+            if (FirebaseAuth.instance.currentUser!.email.toString() ==
+                'shayaniqbal515@gmail.com') {
+              return ListTile(
+                leading: Icon(Icons.person_outlined),
+                title: Text('Admin Panel'),
+                onTap: () async {
+                  Get.to(() => const AdminPanel());
+                },
+              );
+            } else {
+              return Text('');
+            }
+          }),
         ],
       ),
     );

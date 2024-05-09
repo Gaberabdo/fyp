@@ -6,14 +6,13 @@ import 'package:http/http.dart' as http;
 
 class PaymentController extends GetxController {
   Map<String, dynamic>? paymentIntentData;
-  TextEditingController name=TextEditingController();
-  TextEditingController address=TextEditingController();
-  TextEditingController city=TextEditingController();
-  TextEditingController state=TextEditingController();
-  TextEditingController email=TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController address = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController state = TextEditingController();
+  TextEditingController email = TextEditingController();
 
-  TextEditingController number=TextEditingController();
-
+  TextEditingController number = TextEditingController();
 
   Future<void> makePayment(
       {required String amount, required String currency}) async {
@@ -21,16 +20,13 @@ class PaymentController extends GetxController {
       paymentIntentData = await createPaymentIntent(amount, currency);
       if (paymentIntentData != null) {
         await Stripe.instance.initPaymentSheet(
-            paymentSheetParameters: SetupPaymentSheetParameters(
-              applePay: true,
-              googlePay: true,
-              testEnv: true,
-              merchantCountryCode: 'US',
-              merchantDisplayName: 'Prospects',
-              customerId: paymentIntentData!['customer'],
-              paymentIntentClientSecret: paymentIntentData!['client_secret'],
-              customerEphemeralKeySecret: paymentIntentData!['ephemeralKey'],
-            ));
+          paymentSheetParameters: SetupPaymentSheetParameters(
+            merchantDisplayName: 'Prospects',
+            customerId: paymentIntentData!['customer'],
+            paymentIntentClientSecret: paymentIntentData!['client_secret'],
+            customerEphemeralKeySecret: paymentIntentData!['ephemeralKey'],
+          ),
+        );
         displayPaymentSheet();
       }
     } catch (e, s) {
@@ -70,7 +66,7 @@ class PaymentController extends GetxController {
           Uri.parse('https://api.stripe.com/v1/payment_intents'),
           body: body,
           headers: {
-            'Authorization': 'Bearer sk_test_51InumCJNs8MZJzppyvx0VDvVS0bmEg0vyRUjUpyQGeB7TKW4YROG9PjSgTIH061ImZV6Qr9CDZRuXJak7hqAzyDF00SJjXBtGu',
+            'Authorization': 'Bearer <YOUR STRIPE SECRET KEY HERE>',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       print(response.body);

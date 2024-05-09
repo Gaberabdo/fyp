@@ -206,7 +206,7 @@ class _UploadDataState extends State<UploadData> {
                                 Icons.arrow_drop_down,
                                 size: 28,
                               ));}
-                          else{return Text('');};
+                          else{return Text('');}
                         }
                       )
                     ],
@@ -319,7 +319,7 @@ class _UploadDataState extends State<UploadData> {
   Widget _buildImagePicker1() {
     return InkWell(
       onTap: () async {
-        var pickedFile = await imagePicker.getImage(
+        var pickedFile = await imagePicker.pickImage(
             source: ImageSource.gallery, imageQuality: 20);
         setState(() {
           image1 = File(pickedFile!.path);

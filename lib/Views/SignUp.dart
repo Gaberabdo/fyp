@@ -14,14 +14,16 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  AuthController auth=Get.find();
-  var isLoading =false;
+  AuthController auth = Get.find();
+  var isLoading = false;
   bool _isHidden = true;
+
   void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,20 +43,20 @@ class _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 100.0),
-                    child: Text("Let's SIGN You UP !!",style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-
-                    ),),
+                    child: Text(
+                      "Let's SIGN You UP !!",
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 100.0),
                     child: Column(
-
                       children: [
                         TextFormField(
                           decoration: InputDecoration(
@@ -63,13 +65,13 @@ class _SignUpState extends State<SignUp> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             filled: true,
-
                             labelText: 'Full Name',
-
                           ),
                           controller: auth.name,
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         TextFormField(
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.email),
@@ -77,24 +79,22 @@ class _SignUpState extends State<SignUp> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             filled: true,
-
                             labelText: 'Email',
-
                           ),
                           keyboardType: TextInputType.emailAddress,
                           controller: auth.email,
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         TextField(
                           controller: auth.password,
-
                           obscureText: _isHidden,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.lock),
                             suffix: InkWell(
                               onTap: _togglePasswordView,
                               child: Icon(
-
                                 _isHidden
                                     ? Icons.visibility
                                     : Icons.visibility_off,
@@ -109,9 +109,10 @@ class _SignUpState extends State<SignUp> {
                             labelText: 'Password',
                             // fillColor: Colors.grey[300]
                           ),
-
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(
+                          height: 30,
+                        ),
                         // ElevatedButton(onPressed: (){
                         //   auth.signupUserwithEmail(auth.email.text, auth.password.text);
                         // }, child: Text(
@@ -120,63 +121,58 @@ class _SignUpState extends State<SignUp> {
                         // ),
                         Container(
                           decoration: BoxDecoration(
-
                               borderRadius: BorderRadius.circular(20)),
                           height: 35,
                           width: 150,
                           child: ElevatedButton(
-
-
-
-                            onPressed: () async{
-                              setState(()  {
-                                isLoading=true;
+                            onPressed: () async {
+                              setState(() {
+                                isLoading = true;
                               });
-                              var log= await  auth.signupUserwithEmail(auth.email.text, auth.password.text,auth.name.text);
-                              setState(()  {
-                                isLoading=false;
+                              var log = await auth.signupUserwithEmail(
+                                  auth.email.text,
+                                  auth.password.text,
+                                  auth.name.text);
+                              setState(() {
+                                isLoading = false;
                               });
                             },
-                            child:  Builder(
-
-                                builder: (context) {
-                                  if(isLoading==true){
-                                    return Container(
-                                      height: 20,
-                                      width: 20,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                      ),
-                                    );
-                                  }
-                                  else{
-                                    return Text(
-                                      "SIGN UP",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w900,
-                                      ),
-                                    );
-                                  }
-
-
-                                }
-                            ),
+                            child: Builder(builder: (context) {
+                              if (isLoading == true) {
+                                return Container(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                );
+                              } else {
+                                return Text(
+                                  "SIGN UP",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                );
+                              }
+                            }),
                           ),
-
                         ),
 
                         DividerHeading(heading: 'OR'),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text('Sign In with',style: TextStyle(fontSize: 18),),
+                          child: Text(
+                            'Sign In with',
+                            style: TextStyle(fontSize: 18),
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: (){
+                              onTap: () {
                                 auth.signInWithGoogle(context);
                               },
                               child: Container(
@@ -184,12 +180,13 @@ class _SignUpState extends State<SignUp> {
                                   child: Image.asset('images/google.png')),
                             ),
                             InkWell(
-                              onTap: (){
-                                Get.to(()=> const SignUpWithPhoneNumber());
+                              onTap: () {
+                                Get.to(() => const SignUpWithPhoneNumber());
                               },
                               child: const Icon(
                                 Icons.phone,
-                                size: 32,),
+                                size: 32,
+                              ),
                             ),
                           ],
                         ),
@@ -198,14 +195,26 @@ class _SignUpState extends State<SignUp> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Already have an account? ",style: TextStyle(fontSize: 14),),
-                              InkWell(onTap:(){
-                                Get.to(()=>Login());
-                              },child: Text("Login now!!",style: TextStyle(fontSize: 14,color: Get.isDarkMode?Colors.purpleAccent:Colors.deepPurpleAccent,fontWeight: FontWeight.bold),)),
+                              Text(
+                                "Already have an account? ",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Get.to(() => Login());
+                                  },
+                                  child: Text(
+                                    "Login now!!",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Get.isDarkMode
+                                            ? Colors.purpleAccent
+                                            : Colors.deepPurpleAccent,
+                                        fontWeight: FontWeight.bold),
+                                  )),
                             ],
                           ),
                         )
-
                       ],
                     ),
                   ),
